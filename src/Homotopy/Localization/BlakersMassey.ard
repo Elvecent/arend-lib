@@ -66,9 +66,9 @@
       | Y : \hType
       | Q : X -> Y -> \hType
 
-      \func PO => PushoutData {\Sigma (x : X) (y : Y) (Q x y)} (\lam p => p.1) (\lam p => p.2)
+      \func PO => PushoutData {\Sigma (x : X) (y : Y) (Q x y)} (__.1) (__.2)
 
-      \func swap (x : PO) : PushoutData {\Sigma (y : Y) (x : X) (Q x y)} (\lam p => p.1) (\lam p => p.2)
+      \func swap (x : PO) : PushoutData {\Sigma (y : Y) (x : X) (Q x y)} (__.1) (__.2)
         | pinl b => pinr b
         | pinr c => pinl c
         | pglue (x,y,q) i => pglue (y,x,q) (inv (path (\lam j => j)) @ i)
@@ -83,8 +83,7 @@
                           | f => pinr
                           | g => Embedding.projection (\lam y => TruncP (\Sigma (x : X) (Q x y)))
                         }
-                | t => Equiv.ret {EmbeddingPushout.pullback-path-equiv {EP} (pinl x) y} (pmap (\lam w =>
-                        \case w \with {
+                | t => Equiv.ret {EmbeddingPushout.pullback-path-equiv {EP} (pinl x) y} (pmap (\case __ \with {
                            | pinl x => pinl (pinl x)
                            | pinr y => pinr y
                            | pglue (x,y,q) i =>
@@ -231,6 +230,6 @@
       \lemma code-contr {w : PO} (p : pinl x0 = w) : Contr (code p) \cowith
         | center => code-center p
         | contraction => transport (\lam t => \Pi (c : code t.2) -> code-center t.2 = c) (isContr=>isProp (lsigma {PO} (pinl x0)) (pinr y0, pbMap q0) (w, p))
-                                   (\lam c => remove_inL (\lam _ => code-center (pbMap q0)) (\lam c => c) (code-path (pbMap q0)) c)
+                                   (remove_inL (\lam _ => code-center (pbMap q0)) (\lam c => c) (code-path (pbMap q0)))
     }
   }

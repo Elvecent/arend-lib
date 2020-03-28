@@ -82,11 +82,11 @@
                 | f_sec => idpe
               })
               | Eq {x y : C} (e : Iso {C} {x} {y}) (p : x = y)
-                  => Jl (\lam y' p' => \Pi (e' : Iso {C} {x} {y'}) -> Equiv {transport (\lam z => Iso {C} {x} {z}) p' idIso = {Iso {C} {x} {y'}} e'} {transport (Hom x) p' (id x) = e'.f})
+                  => Jl (\lam y' p' => \Pi (e' : Iso {C} {x} {y'}) -> Equiv {transport (Iso {C} {x} {__}) p' idIso = {Iso {C} {x} {y'}} e'} {transport (Hom x) p' (id x) = e'.f})
                         (\lam e' => Embedding.pmap-isEquiv {Emb {x}} {idIso} {e'})
                         p e
               | t (e : Iso) => F e.f e.inv e.f_inv e.inv_f
-              | T-equiv {x y : C} : Equiv (T {x} {y}) => pathEquiv (\lam x y => Iso {C} {x} {y}) (\lam {x} {y} => \new Retraction {
+              | T-equiv {x y : C} : Equiv (T {x} {y}) => pathEquiv (Iso {C} {__} {__}) (\lam {x} {y} => \new Retraction {
                 | f => T {x} {y}
                 | sec (e : Iso) => (t e).1
                 | f_sec (e : Iso) => Equiv.ret {Eq e (t e).1} (t e).2

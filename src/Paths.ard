@@ -26,7 +26,7 @@
     \func concat {A : I -> \Type} {a a' : A left} {a'' : A right} (p : a = a') (q : Path A a' a'') : Path A a a'' \elim p
       | idp => q
 
-\func psqueeze {A : \Type} {a a' : A} (p : a = a') (i : I) : a = p @ i => path (\lam j => p @ I.squeeze i j)
+\func psqueeze {A : \Type} {a a' : A} (p : a = a') (i : I) : a = p @ i => path (p @ I.squeeze i __)
 
 \func Jl {A : \Type} {a : A} (B : \Pi (a' : A) -> a = a' -> \Type) (b : B a idp) {a' : A} (p : a = a') : B a' p \elim p
   | idp => b
@@ -134,7 +134,7 @@
 
 \func transport_pi2 {A : \Type} (B C : A -> \Type) {a a' : A} (p : a = a') (f : B a -> C a) (g : B a' -> C a') (t : \Pi (x : B a) -> transport C p (f x) = g (transport B p x))
   : transport (\lam y => B y -> C y) p f = g \elim p
-  | idp => path (\lam i x => t x @ i)
+  | idp => path (\lam i => t __ @ i)
 
 \func transport_path-right {A : \Type} {a0 a b : A} (p : a = b) (q : a0 = a)
   : transport (a0 =) p q = q *> p
@@ -157,7 +157,7 @@
   | idp => inv (gf b)
 
 \func funExt {A : \Type} (B : A -> \Type) (f g : \Pi (x : A) -> (B x)) (h : \Pi (x : A) -> (f x = g x)) : f = g =>
-  path (\lam i a => h a @ i)
+  path (\lam i => h __ @ i)
 
 \func SigmaExt {A : \Type} (B : A -> \Type) (x y : \Sigma (a : A) (B a)) (p : x.1 = y.1) (q : transport B p x.2 = y.2) : x = y =>
   path (\lam i => (p @ i, pathOver q @ i))

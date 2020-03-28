@@ -21,7 +21,7 @@
   \let c' : Equiv (\lam z _ => z) => propExt.dir (nullTypeUniverse.localDesc X (LType X)) (c (LType X))
   \in \new Contr {
     | center => c'.sec lEta
-    | contraction => remove_inL (\lam _ => c'.sec lEta) (\lam x => x) (\lam a => path (\lam i => (c'.f_sec lEta @ i) a))
+    | contraction => remove_inL (\lam _ => c'.sec lEta) (\lam x => x) (path (\lam i => (c'.f_sec lEta @ i)) __)
   }
 
 -- | If the localization of a type {X} is contractible, then {X} is connected
@@ -53,7 +53,7 @@
               | eq1 => transEquiv (symQEquiv (contr-right (\lam b => lsigma (\lam _ => b))))
                                   (\new QEquiv {\Sigma (b : B) (\Sigma (f : A' -> B) ((\lam _ => b) = f))} {\Sigma (f : A' -> B) (C f)} {
                                     | f p => (p.2.1, (p.1, \lam a => path (\lam i => (p.2.2 @ i) a)))
-                                    | ret p => (p.2.1, (p.1, path (\lam i a => p.2.2 a @ i)))
+                                    | ret p => (p.2.1, (p.1, path (\lam i => p.2.2 __ @ i)))
                                     | ret_f => idpe
                                     | f_sec => idpe
                                   })

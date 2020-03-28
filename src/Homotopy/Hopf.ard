@@ -99,9 +99,9 @@
             \let | e : HAEquiv (`* a) => HSpaceConn-right a
                  | p =>
                    pmap totalJoin (ppglue (e.sec a', a) *> pmap (\lam y => pinr ((),y)) (e.f_sec a')) ==< pmap_*>-comm totalJoin (ppglue (e.sec a', a)) (pmap (\lam y => pinr ((),y)) (e.f_sec a')) >==
-                   jglue a (e.sec a' * a) *> pmap jinr (e.f_sec a')                                   ==< Jl (\lam x p => jglue a (e.sec a' * a) *> pmap jinr p = jglue a x) idp (e.f_sec a') >==
+                   jglue a (e.sec a' * a) *> pmap jinr (e.f_sec a')                                   ==< Jl (\lam x => jglue a (e.sec a' * a) *> pmap jinr __ = jglue a x) idp (e.f_sec a') >==
                    jglue a a'                                                                         `qed
-            \in path (\lam j => p @ j @ i)
+            \in path (p @ __ @ i)
 
         \func totalJoinTotal {A : HSpaceConn} (x : total A) : joinTotal (totalJoin x) = x \elim x
           | pinl (_,a) => idp
@@ -113,7 +113,7 @@
                    s *> pmap (\lam y => pinr ((),y)) (e.f_sec (a * a')) ==< pmap (\lam p => s *> pmap (\lam y => pinr ((),y)) p) (inv (e.f_ret_f=f_sec_f a)) >==
                    s *> pmap (\lam y => pinr ((), y * a')) (e.ret_f a)  ==< Jl (\lam x p => s *> pmap (\lam y => pinr ((), y * a')) p = ppglue (x,a')) idp (e.ret_f a) >==
                    ppglue (a,a')                                        `qed
-            \in path (\lam j => p @ j @ i)
+            \in path (p @ __ @ i)
       }
 
 \func hopfS2 (x : Sphere 2) => hopf x
